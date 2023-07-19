@@ -1,0 +1,18 @@
+In project folder :
+LICENCE (file)
+Makefile (file)
+configs (folder) (maybe)
+
+In configs folder : (maybe)
+model1.yaml
+
+In project folder :
+setup.py
+tox.ini
+virtual env
+pyproject.toml
+
+
+
+In src folder :
+__init__.py
