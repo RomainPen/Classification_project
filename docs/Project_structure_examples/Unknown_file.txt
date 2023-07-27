@@ -1,0 +1,22 @@
+Question ?
+
+In project folder :
+LICENSE (file)
+Makefile (folder)
+configs (folder) or .pre-commit-config.yaml (maybe)
+
+In configs folder : (maybe)
+model1.yaml
+
+In project folder :
+tox.ini
+virtual env (pipfile.lock and pipfile.txt)
+pyproject.toml (== setup.py)
+Thumbs.db
+
+
+In src folder :
+__init__.py
+
+Or In every source's folder (data, features, models, vizualisation, deployement) : (not sure)
+__init__.py

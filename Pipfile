@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 pandas = "==2.0.3"
+path-tree-generator = "*"
 
 [dev-packages]
 
