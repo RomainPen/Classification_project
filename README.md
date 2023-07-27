@@ -17,7 +17,6 @@ Classification_project/
 │   ├── Project_structure_examples/
 │   │   ├── Project_structure1.jpg
 │   │   ├── Project_structure2.png
-│   │   └── Unknown_file.txt
 │   └── docs_example.txt
 ├── models/
 │   └── classification_model.pkl
