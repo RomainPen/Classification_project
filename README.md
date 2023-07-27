@@ -1,6 +1,6 @@
 # Classification_project
 
-<details>
+</details>
 Classification_project/
 ├── configs/
 │   ├── app_config_sample.ini
