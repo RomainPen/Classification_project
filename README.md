@@ -1,5 +1,6 @@
 # Classification_project
 
+<details>
 Classification_project/
 ├── configs/
 │   ├── app_config_sample.ini
@@ -65,3 +66,4 @@ Classification_project/
 ├── README.md
 ├── requirements.txt
 └── tox.ini
+<details>
