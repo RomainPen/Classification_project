@@ -1,0 +1,32 @@
+data:
+  raw_data_path: data/raw/base_projet_teleco.csv
+  external_data_path: data/external/marque_telephone.csv
+  df_train : data/processed/df_train.csv
+  df_val : data/processed/df_val.csv
+  x_train : data/interim_demo/x_train.csv
+  x_val : data/interim_demo/x_val.csv
+
+features_info:
+  target: "AFTERGRACE_FLAG"
+
+random_state: 14
+
+models:
+
+evaluation:
+  metric: f1_score
+
+reports:
+  df_train_summary:
+  target_distrib_groupby_cat_features:
+  target_distrib_groupby_num_features:
+  corr_matrix_df_train:
+
+
+logging:
+  log_file_path: logs/log.txt
+  log_level: INFO
+
+streamlit:
+  page_title: "Spending Score Prediction Web App"
+  page_icon: ":bar_chart:"
