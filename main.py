@@ -48,15 +48,15 @@ def main() :
     # print f1_score (train, test, stratified cv)
     
     # ****************Save all plot in reports folder*****************************
-    # 6/ Analyse model result on val set : (class model result analysis)
+    # 6/ Analyse model result on val set : (class model_result_analysis)
     # Confusion matrix
     # Roc_auc curve
     # Find best threshold
     # lift curve
     # learning curve
-    # feature importance
     
-    # 7/ model interpretation train set : (class SHAP, global analysis) 
+    # 7/ model interpretation train set : (class Features_impact_analysis, global analysis) 
+    # feature importance
     # plot beeswarm
     # plot summary_plot
     # plot bar
