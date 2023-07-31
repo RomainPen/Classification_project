@@ -23,16 +23,19 @@ def main() :
     # target feature distribution group by numerical features
     # correlation matrix
     
-    # 3/ Feature engineering : (class feature engineering)
-    # Feature creation on df_train
-    # Feature creation on df_val
-    
-    # (1st) feature selection with filter methods (apply selection on df_train, then drop features on df_train and df_val)
     # save df_train and df_val to .csv
     
     # split df_train to x_train and y_train (idem for df_val)
-    # save x_train and x_val for testing data on app.py
-    # encoding and scaling (don't take x_train_prepocessed and x_val_proprocessed)
+    # save x_train and x_val (for testing data on app.py)
+    
+    # 3/ Feature engineering : (class feature engineering)
+    # Feature creation on x_train
+    # Feature creation on x_val
+    # add to setting.yaml, list of new col
+    
+    # (1st) feature selection with filter methods (apply selection on df_train (or try on x_train and y_train), then drop features on x_train and x_val)
+    # add to setting.yaml, list of col to drop
+    # encoding and scaling (apply on x_train and x_val), (don't take x_train_prepocessed and x_val_proprocessed)
     
     # 4/ Modelisation (xgboost) : (class model_building)
     # Hyperparam optimization
