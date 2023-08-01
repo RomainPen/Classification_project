@@ -7,6 +7,10 @@ name = "pypi"
 pandas = "==2.0.3"
 path-tree-generator = "*"
 numpy = "*"
+pyyaml = "*"
+unidecode = "*"
+scikit-learn = "*"
+skimpy = "*"
 
 [dev-packages]
 
