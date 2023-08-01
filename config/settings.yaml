@@ -8,6 +8,7 @@ data:
 
 features_info:
   target: "AFTERGRACE_FLAG"
+  new_features:
 
 random_state: 14
 

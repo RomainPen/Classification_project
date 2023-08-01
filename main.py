@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 from src.data.data_cleaning.data_cleaning import Data_Cleaning
 from sklearn.model_selection import train_test_split
-
 from src.visualization.EDA  import EDA
+from src.data.features_engineering.features_engineering import FeaturesEngineering
 
 
 
@@ -81,9 +81,16 @@ def main(random_state) :
     
     #****************************************************NEXT STEP********************************************
     # 3/ Feature engineering : (class feature engineering)
+    features_engineering = FeaturesEngineering()
+    
     # Feature creation on x_train
+    x_train = features_engineering.features_creation(x_df=x_train)
+    
     # Feature creation on x_val
-    # add to setting.yaml, list of new col
+    x_val = features_engineering.features_creation(x_df=x_val)
+    
+    # add to setting.yaml, list of new col #to review
+    #settings["features_info"]["new_features"] = list(x_train.loc[:,"marque":].columns) 
     
     # (1st) feature selection with filter methods (apply selection on df_train (or try on x_train and y_train), then drop features on x_train and x_val)
     # add to setting.yaml, list of col to drop
