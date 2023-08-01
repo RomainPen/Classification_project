@@ -11,7 +11,11 @@ features_info:
   new_features:
   columns_to_drop:
 
-encoding_sclaling:
+encoding_scaling:
+  list_cont_col:
+  list_binary_col:
+  list_cat_col_OHE:
+  list_cat_col_TE:
 
 
 random_state: 14
