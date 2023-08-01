@@ -10,7 +10,7 @@ from src.visualization.EDA  import EDA
 
 
 
-def main() :
+def main(random_state) :
     # Load project setting from setting.yaml :
     with open("config/settings.yaml", "r") as settings_file:
         settings = yaml.safe_load(settings_file)
@@ -34,7 +34,7 @@ def main() :
     
     # Split df (df_train, df_val)
     #target = settings["features_info"]["target"]
-    df_train, df_val = train_test_split(df, test_size=0.2, stratify=df[settings["features_info"]["target"]], random_state=settings["random_state"])
+    df_train, df_val = train_test_split(df, test_size=0.2, stratify=df[settings["features_info"]["target"]], random_state=random_state)
     #reset index :
     df_train = df_train.reset_index(drop = True)
     df_val = df_val.reset_index(drop = True)
@@ -116,7 +116,10 @@ def main() :
 
 
 if __name__ == "__main__":
-    main()
+    # Load project setting from setting.yaml :
+    with open("config/settings.yaml", "r") as settings_file:
+        settings = yaml.safe_load(settings_file)
+    main(random_state=settings["random_state"])
     
     
     
