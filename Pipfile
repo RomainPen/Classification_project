@@ -11,6 +11,7 @@ pyyaml = "*"
 unidecode = "*"
 scikit-learn = "*"
 skimpy = "*"
+category-encoders = "*"
 
 [dev-packages]
 

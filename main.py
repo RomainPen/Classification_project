@@ -5,6 +5,8 @@ from src.data.data_cleaning.data_cleaning import Data_Cleaning
 from sklearn.model_selection import train_test_split
 from src.visualization.EDA  import EDA
 from src.data.features_engineering.features_engineering import FeaturesEngineering
+from sklearn.preprocessing import MinMaxScaler, StandardScaler, MaxAbsScaler, RobustScaler, QuantileTransformer, PowerTransformer  
+
 
 
 
@@ -79,7 +81,6 @@ def main(random_state) :
     x_val.to_csv(path_or_buf=settings["data"]["x_val"], sep=';', index=False)
     
     
-    #****************************************************NEXT STEP********************************************
     # 3/ Feature engineering : (class feature engineering)
     features_engineering = FeaturesEngineering()
     
@@ -92,10 +93,41 @@ def main(random_state) :
     # add to setting.yaml, list of new col #to review
     #settings["features_info"]["new_features"] = list(x_train.loc[:,"marque":].columns) 
     
-    # (1st) feature selection with filter methods (apply selection on df_train (or try on x_train and y_train), then drop features on x_train and x_val)
-    # add to setting.yaml, list of col to drop
-    # encoding and scaling (apply on x_train and x_val), (don't take x_train_prepocessed and x_val_proprocessed)
+    # (1st) feature selection with filter methods (apply selection on x_train and y_train, then drop features on x_train and x_val)
+    x_train = features_engineering.filter_selection(x_df=x_train, y_df=y_train, target=settings["features_info"]["target"], train=True)
+    x_val = features_engineering.filter_selection(x_df=x_val, y_df=None, target=settings["features_info"]["target"], train=False)
     
+    # add to setting.yaml, list of col to drop : to review
+    #settings["features_info"]["columns_to_drop"] = list
+    
+    # encoding and scaling (apply on x_train and x_val), (don't take x_train_prepocessed and x_val_proprocessed)
+    #numeric and > 2 :
+    list_cont_col = x_train.select_dtypes(include=[np.number]).columns.tolist()
+    list_cont_col = [col for col in list_cont_col if x_train[col].nunique() > 2]
+    
+    #numeric and <= 2 :
+    list_binary_col = x_train.select_dtypes(include=[np.number]).columns.tolist()
+    list_binary_col = [col for col in list_binary_col if x_train[col].nunique() <= 2]
+    
+    #categorical col :
+    #list_cat_col = x_train.select_dtypes(include=['object']).columns.tolist()
+    list_cat_col_OHE = ['CUSTOMER_GENDER']
+    list_cat_col_TE =  ['marque']
+    
+    # encoding and scaling
+    x_train = features_engineering.encoding_scaling(x_df=x_train, categorical_var_OHE=list_cat_col_OHE, categorical_var_OrdinalEncoding={}, 
+                                                    categorical_var_TE=list_cat_col_TE, target=settings["features_info"]["target"], 
+                                                    continious_var=list_cont_col, encoding_type_cont=MinMaxScaler(), train=True)
+    
+    x_val = features_engineering.encoding_scaling(x_df=x_val, categorical_var_OHE=list_cat_col_OHE, categorical_var_OrdinalEncoding={}, 
+                                                    categorical_var_TE=list_cat_col_TE, target=settings["features_info"]["target"], 
+                                                    continious_var=list_cont_col, encoding_type_cont=MinMaxScaler(), train=False)
+
+    # feature selection with RFE : didn't used here because to slow
+    
+    
+    
+    #****************************************************NEXT STEP********************************************
     # 4/ Modelisation (xgboost) : (class model_building)
     # Hyperparam optimization
     # save best hyper param in config/hyperparmeters.yaml

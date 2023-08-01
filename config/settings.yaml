@@ -9,6 +9,10 @@ data:
 features_info:
   target: "AFTERGRACE_FLAG"
   new_features:
+  columns_to_drop:
+
+encoding_sclaling:
+
 
 random_state: 14
 
