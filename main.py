@@ -6,8 +6,9 @@ from sklearn.model_selection import train_test_split
 from src.visualization.EDA  import EDA
 from src.data.features_engineering.features_engineering import FeaturesEngineering
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, MaxAbsScaler, RobustScaler, QuantileTransformer, PowerTransformer  
-
-
+from src.models.model_building.model_building import ModelBuilding
+import joblib
+from src.models.model_evaluation.model_evaluation import ModelEvaluation
 
 
 
@@ -81,6 +82,7 @@ def main(random_state) :
     x_val.to_csv(path_or_buf=settings["data"]["x_val"], sep=';', index=False)
     
     
+    
     # 3/ Feature engineering : (class feature engineering)
     features_engineering = FeaturesEngineering()
     
@@ -127,17 +129,47 @@ def main(random_state) :
     
     
     
-    #****************************************************NEXT STEP********************************************
     # 4/ Modelisation (xgboost) : (class model_building)
-    # Hyperparam optimization
+    model_building = ModelBuilding(random_state=random_state)
+    
+    # # train model with best hyper param
+    with open("config/hyperparameters.yaml", "r") as hyperparameters_file:
+        hyperparameters = yaml.safe_load(hyperparameters_file)
+    
+    model = model_building.train(x_train=x_train, y_train=y_train, hyper_parameters = hyperparameters["hyper_param_optimisation"], 
+                                 scoring=settings["optimisation_metric"], k_fold=5, n_trials=2) # or scoring = f1_weighted, accuracy, roc_auc
+    
     # save best hyper param in config/hyperparmeters.yaml
-    # train model with best hyper param
-    # save model
+    #hyperparmeters["best_hyparameters"] = dict
+    
+    # save best model
+    joblib.dump(value = model, filename = settings["models"])
     
     # 5/ model evaluation : (class model_evaluation)
-    # print roc_auc score (train, test, stratified cv)
-    # print f1_score (train, test, stratified cv)
+    model_evaluation = ModelEvaluation(model=model, random_state=random_state)
+    # accuracy score :
+    accuracy_train = model_evaluation.ACCURACY_score(x_df=x_train, y_df=y_train, cross_val=False, k_fold=None)
+    accuracy_val = model_evaluation.ACCURACY_score(x_df=x_val, y_df=y_val, cross_val=False, k_fold=None)
+    accuracy_cv_train = model_evaluation.ACCURACY_score(x_df=x_train, y_df=y_train, cross_val=True, k_fold=5)
+    print(f"accuracy cv : {accuracy_cv_train}")
     
+    # print roc_auc score (train, test, stratified cv)
+    roc_auc_train = model_evaluation.ROC_AUC_score(x_df=x_train, y_df=y_train, cross_val=False, k_fold=None)
+    roc_auc_val = model_evaluation.ROC_AUC_score(x_df=x_val, y_df=y_val, cross_val=False, k_fold=None)
+    roc_auc_cv_train = model_evaluation.ROC_AUC_score(x_df=x_train, y_df=y_train, cross_val=True, k_fold=5)
+    print(f"roc_auc cv : {roc_auc_cv_train}")
+    
+    # print f1_score (train, test, stratified cv)
+    f1_score_train = model_evaluation.F1_score(x_df=x_train, y_df=y_train, cross_val=False, k_fold=None)
+    f1_score_val = model_evaluation.F1_score(x_df=x_val, y_df=y_val, cross_val=False, k_fold=None)
+    f1_score_cv_train = model_evaluation.F1_score(x_df=x_train, y_df=y_train, cross_val=True, k_fold=5)
+    print(f"f1_score cv : {f1_score_cv_train}")
+    
+    # 5*/ creat the predict method in model_building (not sure, may be useless)
+    
+
+
+    #****************************************************NEXT STEP********************************************
     # ****************Save all plot in reports folder*****************************
     # 6/ Analyse model result on val set : (class model_result_analysis)
     # Confusion matrix

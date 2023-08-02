@@ -20,10 +20,9 @@ encoding_scaling:
 
 random_state: 14
 
-models:
+models: models/scoring_model.pkl
 
-evaluation:
-  metric: f1_score
+optimisation_metric: "f1_micro"
 
 reports:
   df_train_summary:
