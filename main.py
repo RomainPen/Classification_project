@@ -116,11 +116,11 @@ def main(random_state) :
     
     # encoding and scaling
     x_train = features_engineering.encoding_scaling(x_df=x_train, categorical_var_OHE=list_cat_col_OHE, categorical_var_OrdinalEncoding={}, 
-                                                    categorical_var_TE=list_cat_col_TE, target=settings["features_info"]["target"], 
+                                                    categorical_var_TE=list_cat_col_TE, target=y_train, 
                                                     continious_var=list_cont_col, encoding_type_cont=MinMaxScaler(), train=True)
     
     x_val = features_engineering.encoding_scaling(x_df=x_val, categorical_var_OHE=list_cat_col_OHE, categorical_var_OrdinalEncoding={}, 
-                                                    categorical_var_TE=list_cat_col_TE, target=settings["features_info"]["target"], 
+                                                    categorical_var_TE=list_cat_col_TE, target=y_train, 
                                                     continious_var=list_cont_col, encoding_type_cont=MinMaxScaler(), train=False)
 
     # feature selection with RFE : didn't used here because to slow
