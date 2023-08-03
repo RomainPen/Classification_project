@@ -17,6 +17,8 @@ xgboost = "*"
 shap = "*"
 seaborn = "*"
 optuna = "*"
+scikit-plot = "*"
+tqdm = "*"
 
 [dev-packages]
 

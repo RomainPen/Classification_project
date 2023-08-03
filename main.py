@@ -9,6 +9,7 @@ from sklearn.preprocessing import MinMaxScaler, StandardScaler, MaxAbsScaler, Ro
 from src.models.model_building.model_building import ModelBuilding
 import joblib
 from src.models.model_evaluation.model_evaluation import ModelEvaluation
+from src.visualization.model_result_analysis  import ModelResultAnalysis
 
 
 
@@ -21,6 +22,9 @@ def main(random_state) :
     # Open raw data :
     df = pd.read_csv(settings["data"]["raw_data_path"], index_col=False, sep=";")
     df = df.iloc[:, 1:]
+    
+    
+    
     
     # 1/ Data cleaning : (class data_cleaning)
     data_cleaning = Data_Cleaning()
@@ -48,22 +52,24 @@ def main(random_state) :
     # Handle missing values on df_val
     df_val = data_cleaning.impute_missing_values(df=df_val, target=settings["features_info"]["target"], train=False)
 
-    #*************************************************to review***********************************************
+
+
+
     # 2/ EDA on df_train : (class EDA) #Find a way to save all of this summary
-    Exp_data_analysis = EDA()
+    Exp_data_analysis = EDA(df=df_train, target=settings["features_info"]["target"])
     
     # Skim(df)
-    df_train_summary = Exp_data_analysis.general_summary_skimpy(df_train)
+    #Exp_data_analysis.general_summary_skimpy()
     
     # target feature distribution group by categorical features
-    target_distrib_groupby_cat_features = Exp_data_analysis.target_feature_distribution_groupby_categorical_features(df_train)
+    Exp_data_analysis.target_feature_distribution_groupby_categorical_features(file_saving=settings["reports"]["EDA"]["target_distrib_groupby_cat_features"])
     
     # target feature distribution group by numerical features
-    target_distrib_groupby_num_features = Exp_data_analysis.target_feature_distribution_groupby_numerical_features(df_train)
+    #Exp_data_analysis.target_feature_distribution_groupby_numerical_features(file_saving=settings["reports"]["EDA"]["target_distrib_groupby_num_features"])
     
     # correlation matrix
-    corr_matrix_df_train = Exp_data_analysis.correlation_matrix(df_train)
-    #***********************************************************************************************************
+    Exp_data_analysis.correlation_matrix(file_saving=settings["reports"]["EDA"]["corr_matrix_df_train"])
+
     
     # 2*/ Save and split dataframes :
     # save df_train and df_val to .csv
@@ -80,6 +86,7 @@ def main(random_state) :
     # save x_train and x_val (for testing data on app.py)
     x_train.to_csv(path_or_buf=settings["data"]["x_train"], sep=';', index=False)
     x_val.to_csv(path_or_buf=settings["data"]["x_val"], sep=';', index=False)
+    
     
     
     
@@ -129,6 +136,7 @@ def main(random_state) :
     
     
     
+    
     # 4/ Modelisation (xgboost) : (class model_building)
     model_building = ModelBuilding(random_state=random_state)
     
@@ -144,6 +152,10 @@ def main(random_state) :
     
     # save best model
     joblib.dump(value = model, filename = settings["models"])
+    
+    
+    
+    
     
     # 5/ model evaluation : (class model_evaluation)
     model_evaluation = ModelEvaluation(model=model, random_state=random_state)
@@ -169,15 +181,32 @@ def main(random_state) :
     
 
 
-    #****************************************************NEXT STEP********************************************
+
     # ****************Save all plot in reports folder*****************************
     # 6/ Analyse model result on val set : (class model_result_analysis)
-    # Confusion matrix
-    # Roc_auc curve
-    # Find best threshold
-    # lift curve
-    # learning curve
+    model_result_analysis = ModelResultAnalysis(model=model, x_df=x_val, y_df=y_val)
     
+    # Confusion matrix 
+    model_result_analysis.CONFUSION_MATRIX(file_location=settings["reports"]["Model_result_analysis"]["CONFUSION_MATRIX"])
+    classification_report = model_result_analysis.CLASSIFICATION_REPORT()
+    
+    # Roc_auc curve
+    model_result_analysis.ROC_AUC_curve(file_location=settings["reports"]["Model_result_analysis"]["ROC_AUC_curve"])
+    
+    # Find best threshold
+    best_threshold = model_result_analysis.BEST_THRESHOLD()
+    print(f"best threshold : {best_threshold}")
+    
+    # lift curve
+    model_result_analysis.LIFT_CURVE(file_location=settings["reports"]["Model_result_analysis"]["LIFT_CURVE"])
+    
+    # learning curve
+    model_result_analysis.LEARNING_CURVE(cv=10, scoring="f1", file_location=settings["reports"]["Model_result_analysis"]["LEARNING_CURVE"])
+    
+    
+    
+    
+    #****************************************************NEXT STEP********************************************
     # 7/ model interpretation train set : (class Features_impact_analysis, global analysis) 
     # feature importance
     # plot beeswarm

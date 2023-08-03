@@ -25,11 +25,16 @@ models: models/scoring_model.pkl
 optimisation_metric: "f1_micro"
 
 reports:
-  df_train_summary:
-  target_distrib_groupby_cat_features:
-  target_distrib_groupby_num_features:
-  corr_matrix_df_train:
-
+  EDA :
+    df_train_summary: 
+    target_distrib_groupby_cat_features: "reports/EDA/target_distrib_groupby_"
+    target_distrib_groupby_num_features: "reports/EDA/target_distrib_groupby_"
+    corr_matrix_df_train: reports/EDA/corr_matrix_df_train.png
+  Model_result_analysis:
+    CONFUSION_MATRIX: reports/Model_result_analysis/CONFUSION_MATRIX.png
+    ROC_AUC_curve:  reports/Model_result_analysis/ROC_AUC_curve.png
+    LIFT_CURVE:  reports/Model_result_analysis/LIFT_CURVE.png
+    LEARNING_CURVE:  reports/Model_result_analysis/LEARNING_CURVE.png
 
 logging:
   log_file_path: logs/log.txt
