@@ -1,3 +1,5 @@
+random_state: 14
+
 data:
   raw_data_path: data/raw/base_projet_teleco.csv
   external_data_path: data/external/marque_telephone.csv
@@ -16,9 +18,6 @@ encoding_scaling:
   list_binary_col:
   list_cat_col_OHE:
   list_cat_col_TE:
-
-
-random_state: 14
 
 models: models/scoring_model.pkl
 
