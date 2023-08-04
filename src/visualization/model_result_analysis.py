@@ -38,19 +38,17 @@ class ModelResultAnalysis:
     
     
     def ROC_AUC_curve(self, file_location):
-        fpr_train_XGB, tpr_train_XGB, thresholds_train_XGB = roc_curve(self.y_df, self.model.predict_proba(self.x_df)[:,1])
-        roc_auc_train_XGB = auc(fpr_train_XGB, tpr_train_XGB)
+        
+        #fpr_train_XGB, tpr_train_XGB, thresholds_train_XGB = roc_curve(self.y_df, self.model.predict_proba(self.x_df)[:,1])
+        #roc_auc_train_XGB = auc(fpr_train_XGB, tpr_train_XGB)
 
         fpr_val_XGB, tpr_val_XGB, thresholds_val_XGB = roc_curve(self.y_df, self.model.predict_proba(self.x_df)[:,1])
         roc_auc_val_XGB = auc(fpr_val_XGB, tpr_val_XGB)
         
         plt.figure()
-        lw = 2
-        plt.plot(fpr_train_XGB, tpr_train_XGB, color='darkorange',
-                lw=lw, label='Train - ROC curve (area = %0.3f)' % roc_auc_train_XGB)
         plt.plot(fpr_val_XGB, tpr_val_XGB, color='darkgreen',
-                lw=lw, label='Val - ROC curve (area = %0.3f)' % roc_auc_val_XGB)
-        plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
+                 label='Val - ROC curve (area = %0.3f)' % roc_auc_val_XGB)
+        plt.plot([0, 1], [0, 1], color='navy', linestyle='--')
         plt.xlim([0.0, 1.0])
         plt.ylim([0.0, 1.05])
         plt.xlabel('Recall')
@@ -77,7 +75,8 @@ class ModelResultAnalysis:
         table_choix_seuil_val["SEUIL"] = [0] + list(thresholds)
         table_choix_seuil_val["Precision_val"] = precision
         table_choix_seuil_val["Recall_val"] = recall
-        table_choix_seuil_val.sort_values(by = "SEUIL", axis=0, ascending=False, inplace=True)
+        table_choix_seuil_val = table_choix_seuil_val.sort_values(by = "SEUIL", axis=0, ascending=False)
+        table_choix_seuil_val = pd.DataFrame(table_choix_seuil_val)
         
         best_seuil = {"seuil":0,
                     "recall" : 0,
@@ -87,8 +86,8 @@ class ModelResultAnalysis:
                     "profit_net_sauve_grace_au_model_sur_1an" : 0}
 
         prix_forfait_mensuel_par_client = self.x_df["AVERAGE_CHARGE_6M"].mean()/6
-        profit_mensuel_par_forfait_par_client_en_porucent = 0.4
-        profit_mensuel_par_forfait_par_client = profit_mensuel_par_forfait_par_client_en_porucent*prix_forfait_mensuel_par_client
+        profit_mensuel_par_forfait_par_client_en_pourcent = 0.4
+        profit_mensuel_par_forfait_par_client = profit_mensuel_par_forfait_par_client_en_pourcent*prix_forfait_mensuel_par_client
         cout_campagne_offre_par_client_par_mois = self.x_df["AVERAGE_CHARGE_6M"].mean()/6*0.2
 
         for i in tqdm(table_choix_seuil_val['SEUIL']) :

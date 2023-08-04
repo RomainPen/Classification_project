@@ -10,7 +10,7 @@ from src.models.model_building.model_building import ModelBuilding
 import joblib
 from src.models.model_evaluation.model_evaluation import ModelEvaluation
 from src.visualization.model_result_analysis  import ModelResultAnalysis
-
+from src.visualization.Features_impact_analysis import FeaturesImpactAnalysis
 
 
 
@@ -40,7 +40,6 @@ def main(random_state) :
     df = data_cleaning.features_transformation(df=df, external_df=external_df)
     
     # Split df (df_train, df_val)
-    #target = settings["features_info"]["target"]
     df_train, df_val = train_test_split(df, test_size=0.2, stratify=df[settings["features_info"]["target"]], random_state=random_state)
     #reset index :
     df_train = df_train.reset_index(drop = True)
@@ -71,7 +70,7 @@ def main(random_state) :
     Exp_data_analysis.correlation_matrix(file_saving=settings["reports"]["EDA"]["corr_matrix_df_train"])
 
     
-    # 2*/ Save and split dataframes :
+    # 2*/ Save and split dataframes : basic treatment, anormale, feature transformation, handle_missing_value
     # save df_train and df_val to .csv
     df_train.to_csv(path_or_buf=settings["data"]["df_train"], sep=';', index=False)
     df_val.to_csv(path_or_buf=settings["data"]["df_val"], sep=';', index=False)
@@ -182,7 +181,6 @@ def main(random_state) :
 
 
 
-    # ****************Save all plot in reports folder*****************************
     # 6/ Analyse model result on val set : (class model_result_analysis)
     model_result_analysis = ModelResultAnalysis(model=model, x_df=x_val, y_df=y_val)
     
@@ -206,12 +204,18 @@ def main(random_state) :
     
     
     
-    #****************************************************NEXT STEP********************************************
     # 7/ model interpretation train set : (class Features_impact_analysis, global analysis) 
+    features_impact_analysis = FeaturesImpactAnalysis(model=model, x_df=x_train[:5000])
+    
     # feature importance
-    # plot beeswarm
+    features_importance = features_impact_analysis.Features_importance()
+    
+    # plot beeswarm (later)
+    
     # plot summary_plot
-    # plot bar
+    features_impact_analysis.SHAP_explainer(file_saving=settings["reports"]["Features_impact_analysis"]["SHAP_explainer_summary"])
+    
+    # plot bar (later)
     
 
 
