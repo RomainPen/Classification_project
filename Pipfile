@@ -19,6 +19,7 @@ seaborn = "*"
 optuna = "*"
 scikit-plot = "*"
 tqdm = "*"
+streamlit = "*"
 
 [dev-packages]
 
