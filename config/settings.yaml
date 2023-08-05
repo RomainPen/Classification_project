@@ -11,16 +11,22 @@ data:
 features_info:
   target: "AFTERGRACE_FLAG"
   new_features:
-  columns_to_drop:
+  columns_to_drop: ['PASS_AFTERGRACE_IND_M1',
+                    'INC_DURATION_MINS_M1',
+                    'INC_PROP_OPE2_MIN_M3',
+                    'OUT_DURATION_MINS_M1',
+                    'OUT_DURATION_MINS_M3',
+                    'OUT_INT_DURATION_MINS_M3',
+                    'OUT_VMACC_NO_CALLS_M1',
+                    'INC_OUT_PROP_DUR_MIN_M1']
 
 encoding_scaling:
   list_cont_col:
   list_binary_col:
-  list_cat_col_OHE:
-  list_cat_col_TE:
+  list_cat_col_OHE: ['CUSTOMER_GENDER']
+  list_cat_col_TE: ['marque']
 
 models: models/scoring_model.pkl
-
 optimisation_metric: "f1_micro"
 
 reports:
@@ -34,6 +40,7 @@ reports:
     ROC_AUC_curve:  reports/Model_result_analysis/ROC_AUC_curve.png
     LIFT_CURVE:  reports/Model_result_analysis/LIFT_CURVE.png
     LEARNING_CURVE:  reports/Model_result_analysis/LEARNING_CURVE.png
+    BEST_THRESHOLD : 0.42
   Features_impact_analysis:
     SHAP_explainer_summary: reports/Features_impact_analysis/SHAP_summary_plot.pdf
 
