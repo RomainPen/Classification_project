@@ -1,5 +1,6 @@
 # Classification_project
 
+Link : https://nppm6uqcxxf3vmokesgbql.streamlit.app/
 
 - Classification_project/
   - configs/
