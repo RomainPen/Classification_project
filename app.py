@@ -31,7 +31,7 @@ with open(model_path, 'rb') as model_file:
     scoring_model = joblib.load(model_file) # or pickle.load(file)
  
 # import df_train for pre-processing :
-df_folder = os.path.join(os.path.dirname(__file__), '', 'data\\processed')
+df_folder = os.path.join(os.path.dirname(__file__), '', 'data/processed')
 df_path = os.path.join(df_folder, 'df_train.csv')
 with open(df_path, 'r') as file:
     df_train = pd.read_csv(file, sep=";")
