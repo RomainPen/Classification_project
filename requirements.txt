@@ -1,1 +1,16 @@
 pandas==2.0.3
+path-tree-generator 
+numpy ==1.24
+pyyaml 
+unidecode 
+scikit-learn 
+skimpy 
+category-encoders 
+joblib 
+xgboost 
+shap 
+seaborn 
+optuna 
+scikit-plot 
+tqdm 
+streamlit 
