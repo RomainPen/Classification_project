@@ -1,121 +1,120 @@
 Classification_project/
-┣ 📂config
-┃ ┣ 📜app_config_sample.ini                 #empty
-┃ ┣ 📜hyperparameters.yaml
-┃ ┣ 📜logging_sample.conf                   #empty
-┃ ┗ 📜settings.yaml
-┣ 📂data
-┃ ┣ 📂external
-┃ ┃ ┣ 📜marque_telephone.csv
-┃ ┃ ┗ 📜marque_telephone.xlsx
-┃ ┣ 📂interim_demo
-┃ ┃ ┣ 📜x_test1.csv
-┃ ┃ ┗ 📜x_test2.csv
-┃ ┣ 📂processed
-┃ ┃ ┣ 📜df_train.csv
-┃ ┃ ┗ 📜df_val.csv
-┃ ┗ 📂raw
-┃ ┃ ┗ 📜base_projet_teleco.csv
-┣ 📂docs
-┃ ┣ 📂Classification_project_structure
-┃ ┃ ┣ 📜Classification_project_structure_OFF.txt
-┃ ┃ ┗ 📜Classification_project_structure_test.txt
-┃ ┣ 📂Project_structure_examples
-┃ ┃ ┣ 📜Project_structure1.jpg
-┃ ┃ ┣ 📜Project_structure2.png
-┃ ┃ ┗ 📜Unknown_file.txt
-┃ ┗ 📜docs_example.txt
-┣ 📂models
-┃ ┗ 📜scoring_model.pkl
-┣ 📂notebooks
-┃ ┣ 📜Creation_variables.ipynb
-┃ ┣ 📜Notebook_code.ipynb
-┃ ┗ 📜test.ipynb
-┣ 📂references
-┃ ┗ 📜install_guide.txt                 #empty
-┣ 📂reports
-┃ ┣ 📂EDA
-┃ ┃ ┣ 📜corr_matrix_df_train.png
-┃ ┃ ┣ 📜target_distrib_groupby_CUSTOMER_GENDER.png
-┃ ┃ ┗ 📜target_distrib_groupby_marque.png
-┃ ┣ 📂Features_impact_analysis
-┃ ┃ ┗ 📜SHAP_summary_plot.pdf
-┃ ┣ 📂figures
-┃ ┃ ┣ 📜Customer_Churn.png
-┃ ┃ ┣ 📜Customer_Churn2.png
-┃ ┃ ┣ 📜customer_churn3.webp
-┃ ┃ ┗ 📜streamlit-APP-2023-07-19-10-07-63.webm                  #to change
-┃ ┣ 📂Model_result_analysis
-┃ ┃ ┣ 📜CONFUSION_MATRIX.png
-┃ ┃ ┣ 📜LEARNING_CURVE.png
-┃ ┃ ┣ 📜LIFT_CURVE.png
-┃ ┃ ┗ 📜ROC_AUC_curve.png
-┃ ┣ 📜PENICHON_BOUMEZAOUED_GEFFLOT.pptx
-┃ ┗ 📜SCORING.pdf
-┣ 📂src
-┃ ┣ 📂data
-┃ ┃ ┣ 📂data_cleaning
-┃ ┃ ┃ ┣ 📂__pycache__
-┃ ┃ ┃ ┃ ┣ 📜data_cleaning.cpython-311.pyc
-┃ ┃ ┃ ┃ ┗ 📜__init__.cpython-311.pyc
-┃ ┃ ┃ ┣ 📜data_cleaning.py
-┃ ┃ ┃ ┗ 📜__init__.py
-┃ ┃ ┣ 📂features_engineering
-┃ ┃ ┃ ┣ 📂__pycache__
-┃ ┃ ┃ ┃ ┣ 📜features_engineering.cpython-311.pyc
-┃ ┃ ┃ ┃ ┗ 📜__init__.cpython-311.pyc
-┃ ┃ ┃ ┣ 📜features_engineering.py
-┃ ┃ ┃ ┗ 📜__init__.py
-┃ ┃ ┣ 📂__pycache__
-┃ ┃ ┃ ┗ 📜__init__.cpython-311.pyc
-┃ ┃ ┗ 📜__init__.py
-┃ ┣ 📂models
-┃ ┃ ┣ 📂model_building
-┃ ┃ ┃ ┣ 📂__pycache__
-┃ ┃ ┃ ┃ ┣ 📜model_building.cpython-311.pyc
-┃ ┃ ┃ ┃ ┗ 📜__init__.cpython-311.pyc
-┃ ┃ ┃ ┣ 📜model_building.py
-┃ ┃ ┃ ┗ 📜__init__.py
-┃ ┃ ┣ 📂model_evaluation
-┃ ┃ ┃ ┣ 📂__pycache__
-┃ ┃ ┃ ┃ ┣ 📜model_evaluation.cpython-311.pyc
-┃ ┃ ┃ ┃ ┗ 📜__init__.cpython-311.pyc
-┃ ┃ ┃ ┣ 📜model_evaluation.py
-┃ ┃ ┃ ┗ 📜__init__.py
-┃ ┃ ┣ 📂__pycache__
-┃ ┃ ┃ ┗ 📜__init__.cpython-311.pyc
-┃ ┃ ┗ 📜__init__.py
-┃ ┣ 📂utils
-┃ ┃ ┣ 📜common_utils.py                 #empty
-┃ ┃ ┗ 📜__init__.py
-┃ ┣ 📂visualization
-┃ ┃ ┣ 📂__pycache__
-┃ ┃ ┃ ┣ 📜EDA.cpython-311.pyc
-┃ ┃ ┃ ┣ 📜Features_impact_analysis.cpython-311.pyc
-┃ ┃ ┃ ┣ 📜model_result_analysis.cpython-311.pyc
-┃ ┃ ┃ ┗ 📜__init__.cpython-311.pyc
-┃ ┃ ┣ 📜EDA.py
-┃ ┃ ┣ 📜Features_impact_analysis.py
-┃ ┃ ┣ 📜model_result_analysis.py
-┃ ┃ ┗ 📜__init__.py
-┃ ┣ 📂__pycache__
-┃ ┃ ┗ 📜__init__.cpython-311.pyc
-┃ ┗ 📜__init__.py
-┣ 📂tests                                #empty
-┃ ┣ 📜test_data_cleaning.py
-┃ ┣ 📜test_EDA.py
-┃ ┣ 📜test_Features_impact_analysis.py
-┃ ┣ 📜test_feature_engineering.py
-┃ ┣ 📜test_model_building.py
-┃ ┣ 📜test_model_evaluation.py
-┃ ┗ 📜test_model_result_analysis.py
-┣ 📜.gitignore
-┣ 📜app.py
-┣ 📜main.py
-┣ 📜Pipfile
-┣ 📜Pipfile.lock
-┣ 📜pyproject.toml                      #empty
-┣ 📜pytest_sample.ini                   #empty
-┣ 📜README.md
-┣ 📜requirements.txt
-┗ 📜tox.ini                             #empty
+ ┣ 📂config
+ ┃ ┣ 📜app_config_sample.ini        #empty
+ ┃ ┣ 📜hyperparameters.yaml
+ ┃ ┣ 📜logging_sample.conf          #empty
+ ┃ ┗ 📜settings.yaml
+ ┣ 📂data
+ ┃ ┣ 📂external
+ ┃ ┃ ┣ 📜marque_telephone.csv
+ ┃ ┃ ┗ 📜marque_telephone.xlsx
+ ┃ ┣ 📂interim_demo
+ ┃ ┃ ┣ 📜x_test1.csv
+ ┃ ┃ ┗ 📜x_test2.csv
+ ┃ ┣ 📂processed
+ ┃ ┃ ┣ 📜df_train.csv
+ ┃ ┃ ┗ 📜df_val.csv
+ ┃ ┗ 📂raw
+ ┃ ┃ ┗ 📜base_projet_teleco.csv
+ ┣ 📂docs
+ ┃ ┗ 📂Project_structure_examples
+ ┃ ┃ ┣ 📜Project_structure1.jpg
+ ┃ ┃ ┣ 📜Project_structure2.png
+ ┃ ┃ ┗ 📜Unknown_file.txt
+ ┣ 📂models
+ ┃ ┗ 📜scoring_model.pkl
+ ┣ 📂notebooks
+ ┃ ┣ 📜Creation_variables.ipynb
+ ┃ ┣ 📜Notebook_code.ipynb
+ ┃ ┗ 📜test.ipynb
+ ┣ 📂references
+ ┃ ┣ 📂Classification_project_structure
+ ┃ ┃ ┣ 📜Classification_project_structure_OFF.txt
+ ┃ ┃ ┗ 📜Classification_project_structure_test.txt
+ ┃ ┗ 📜install_guide.txt
+ ┣ 📂reports
+ ┃ ┣ 📂EDA
+ ┃ ┃ ┣ 📜corr_matrix_df_train.png
+ ┃ ┃ ┣ 📜target_distrib_groupby_CUSTOMER_GENDER.png
+ ┃ ┃ ┗ 📜target_distrib_groupby_marque.png
+ ┃ ┣ 📂Features_impact_analysis
+ ┃ ┃ ┗ 📜SHAP_summary_plot.pdf
+ ┃ ┣ 📂figures
+ ┃ ┃ ┣ 📜Customer_Churn.png
+ ┃ ┃ ┣ 📜Customer_Churn2.png
+ ┃ ┃ ┣ 📜customer_churn3.webp
+ ┃ ┃ ┗ 📜streamlit-APP-2023-07-19-10-07-63.webm             #to change
+ ┃ ┣ 📂Model_result_analysis
+ ┃ ┃ ┣ 📜CONFUSION_MATRIX.png
+ ┃ ┃ ┣ 📜LEARNING_CURVE.png
+ ┃ ┃ ┣ 📜LIFT_CURVE.png
+ ┃ ┃ ┗ 📜ROC_AUC_curve.png
+ ┃ ┣ 📜PENICHON_BOUMEZAOUED_GEFFLOT.pptx
+ ┃ ┗ 📜SCORING.pdf
+ ┣ 📂src
+ ┃ ┣ 📂data
+ ┃ ┃ ┣ 📂data_cleaning
+ ┃ ┃ ┃ ┣ 📂__pycache__
+ ┃ ┃ ┃ ┃ ┣ 📜data_cleaning.cpython-311.pyc
+ ┃ ┃ ┃ ┃ ┗ 📜__init__.cpython-311.pyc
+ ┃ ┃ ┃ ┣ 📜data_cleaning.py
+ ┃ ┃ ┃ ┗ 📜__init__.py
+ ┃ ┃ ┣ 📂features_engineering
+ ┃ ┃ ┃ ┣ 📂__pycache__
+ ┃ ┃ ┃ ┃ ┣ 📜features_engineering.cpython-311.pyc
+ ┃ ┃ ┃ ┃ ┗ 📜__init__.cpython-311.pyc
+ ┃ ┃ ┃ ┣ 📜features_engineering.py
+ ┃ ┃ ┃ ┗ 📜__init__.py
+ ┃ ┃ ┣ 📂__pycache__
+ ┃ ┃ ┃ ┗ 📜__init__.cpython-311.pyc
+ ┃ ┃ ┗ 📜__init__.py
+ ┃ ┣ 📂models
+ ┃ ┃ ┣ 📂model_building
+ ┃ ┃ ┃ ┣ 📂__pycache__
+ ┃ ┃ ┃ ┃ ┣ 📜model_building.cpython-311.pyc
+ ┃ ┃ ┃ ┃ ┗ 📜__init__.cpython-311.pyc
+ ┃ ┃ ┃ ┣ 📜model_building.py
+ ┃ ┃ ┃ ┗ 📜__init__.py
+ ┃ ┃ ┣ 📂model_evaluation
+ ┃ ┃ ┃ ┣ 📂__pycache__
+ ┃ ┃ ┃ ┃ ┣ 📜model_evaluation.cpython-311.pyc
+ ┃ ┃ ┃ ┃ ┗ 📜__init__.cpython-311.pyc
+ ┃ ┃ ┃ ┣ 📜model_evaluation.py
+ ┃ ┃ ┃ ┗ 📜__init__.py
+ ┃ ┃ ┣ 📂__pycache__
+ ┃ ┃ ┃ ┗ 📜__init__.cpython-311.pyc
+ ┃ ┃ ┗ 📜__init__.py
+ ┃ ┣ 📂utils                        #empty
+ ┃ ┃ ┣ 📜common_utils.py
+ ┃ ┃ ┗ 📜__init__.py
+ ┃ ┣ 📂visualization
+ ┃ ┃ ┣ 📂__pycache__
+ ┃ ┃ ┃ ┣ 📜EDA.cpython-311.pyc
+ ┃ ┃ ┃ ┣ 📜Features_impact_analysis.cpython-311.pyc
+ ┃ ┃ ┃ ┣ 📜model_result_analysis.cpython-311.pyc
+ ┃ ┃ ┃ ┗ 📜__init__.cpython-311.pyc
+ ┃ ┃ ┣ 📜EDA.py
+ ┃ ┃ ┣ 📜Features_impact_analysis.py
+ ┃ ┃ ┣ 📜model_result_analysis.py
+ ┃ ┃ ┗ 📜__init__.py
+ ┃ ┣ 📂__pycache__
+ ┃ ┃ ┗ 📜__init__.cpython-311.pyc
+ ┃ ┗ 📜__init__.py
+ ┣ 📂tests                          #empty
+ ┃ ┣ 📜test_data_cleaning.py
+ ┃ ┣ 📜test_EDA.py
+ ┃ ┣ 📜test_Features_impact_analysis.py
+ ┃ ┣ 📜test_feature_engineering.py
+ ┃ ┣ 📜test_model_building.py
+ ┃ ┣ 📜test_model_evaluation.py
+ ┃ ┗ 📜test_model_result_analysis.py
+ ┣ 📜.gitignore
+ ┣ 📜app.py
+ ┣ 📜main.py
+ ┣ 📜Pipfile
+ ┣ 📜Pipfile.lock
+ ┣ 📜pyproject.toml            #empty
+ ┣ 📜pytest_sample.ini         #empty
+ ┣ 📜README.md
+ ┣ 📜requirements.txt
+ ┗ 📜tox.ini                   #empty
