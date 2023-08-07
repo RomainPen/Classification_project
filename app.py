@@ -39,7 +39,7 @@ with open(df_path, 'r') as file:
 
 
 # Load the image : 
-image_folder = os.path.join(os.path.dirname(__file__), '', 'reports\\figures')
+image_folder = os.path.join(os.path.dirname(__file__), '', 'reports/figures')
 image_path = os.path.join(image_folder, 'Customer_Churn.png')
 image = Image.open(image_path)    
 
