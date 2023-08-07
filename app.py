@@ -65,7 +65,7 @@ st.image(image, caption='Customer churn schema')
 # basic treatment, anormale, feature transformation, handle_missing_value
 def main():
     
-    st.header("Dataset clusturing and theme analysis")
+    st.header("Who are the churner ? ")
     # Import x_test CSV :
     uploaded_file = st.file_uploader("Choose a file (only accept .csv)")
     if uploaded_file is not None :
