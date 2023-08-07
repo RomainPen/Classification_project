@@ -19,6 +19,7 @@ optuna = "*"
 scikit-plot = "*"
 tqdm = "*"
 streamlit = "*"
+importlib-resources = "*"
 
 [dev-packages]
 
