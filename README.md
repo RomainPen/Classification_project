@@ -154,6 +154,6 @@ This project is licensed under the [insert license name] License - see the [LICE
 
 ## Contact
 If you have any questions or suggestions, feel free to contact the project maintainers:
-- [Maintainer 1 Name] - [romain.pen.pro16@gmail.com]
+- [PENICHON Romain] - [romain.pen.pro16@gmail.com]
 
 We hope you find this project useful and enjoy exploring the world of machine learning and classification! Happy coding!
