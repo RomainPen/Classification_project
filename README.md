@@ -76,7 +76,7 @@ The project is organized into the following directories and files:
          - **model_building.py:** Module for building machine learning models.
       - **model_evaluation:**
          - **model_evaluation.py:** Module for evaluating machine learning models.
-   - **utils:** (Currently empty) This directory might store common utility functions.
+   - **utils:** (Currently not used) This directory might store common utility functions.
       - **common_utils.py:** Common utility functions.
       - **data_cleaning_utils.py:** data_cleaning utility functions.
       - **EDA_utils.py:** EDA utility functions.
