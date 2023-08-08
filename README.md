@@ -78,6 +78,13 @@ The project is organized into the following directories and files:
          - **model_evaluation.py:** Module for evaluating machine learning models.
    - **utils:** (Currently empty) This directory might store common utility functions.
       - **common_utils.py:** Common utility functions.
+      - **data_cleaning_utils.py:** data_cleaning utility functions.
+      - **EDA_utils.py:** EDA utility functions.
+      - **feature_engineering_utils.py:** feature_engineering utility functions.
+      - **Features_impact_analysis_utils.py:** Features_impact_analysis utility functions.
+      - **model_building_utils.py:** model_building utility functions.
+      - **model_evaluation_utils.py:** model_evaluation utility functions.
+      - **model_result_analysis_utils.py:** model_result_analysis utility functions.
    - **visualization:**
       - **EDA.py:** Module for data visualization and exploratory data analysis functions.
       - **Features_impact_analysis.py:** Module for feature impact analysis functions.
@@ -108,30 +115,30 @@ The project is organized into the following directories and files:
 To run this project on your local machine, follow these steps:
 
 1. Clone the repository:
-   ```bash
-   git clone [https://github.com/RomainPen/Classification_project.git]
+```bash
+   git clone https://github.com/RomainPen/Classification_project.git
    cd Classification_project
-   ```
+```
 
 2. create the new env : 
  manager, pip:
  ```bash
   py -m pipenv install
-  ```
+```
 
 3. Install the required dependencies using the package
  manager, pip:
 ```bash
    pipenv shell 
    #or pipenv install -r pipfile.txt #(or requirements.txt)
-   ```
+```
 
 4. Navigate to the project root directory and run the main.py script:
 ```bash
    python main.py
-   ```
+```
 
-5. Access the Streamlit web app using the provided link: [https://nppm6uqcxxf3vmokesgbql.streamlit.app/]
+5. Access the Streamlit web app using the provided link: https://nppm6uqcxxf3vmokesgbql.streamlit.app/
 
 ## Usage and Contribution
 Feel free to use and modify this project according to your needs. If you wish to contribute to the project, follow these steps:
@@ -150,10 +157,10 @@ Feel free to use and modify this project according to your needs. If you wish to
 We would like to thank all contributors and acknowledge any third-party data or tools used in this project.
 
 ## License
-This project is licensed under the [insert license name] License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Contact
 If you have any questions or suggestions, feel free to contact the project maintainers:
-- [PENICHON Romain] - [romain.pen.pro16@gmail.com]
+- PENICHON Romain - romain.pen.pro16@gmail.com
 
-We hope you find this project useful and enjoy exploring the world of machine learning and classification! Happy coding!
+We hope you find this project useful and enjoy exploring the world of machine learning and classification!
