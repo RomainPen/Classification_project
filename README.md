@@ -56,7 +56,7 @@ The project is organized into the following directories and files:
       - **Customer_Churn.png:** Customer churn plot.
       - **Customer_Churn2.png:** Another customer churn plot.
       - **customer_churn3.webp:** WebP image of customer churn (Note: The extension should be ".webm" instead of ".webp").
-      - **streamlit-APP-2023-07-19-10-07-63.webm:** WebM video of a Streamlit application (To be renamed with a proper filename).
+      - **streamlit-APP-2023-07-19-10-07-63.webm:** WebM video of a Streamlit application.
    - **Model_result_analysis:** Contains model evaluation results.
       - **CONFUSION_MATRIX.png:** Confusion matrix plot.
       - **LEARNING_CURVE.png:** Learning curve plot.
