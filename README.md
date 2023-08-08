@@ -41,8 +41,7 @@ The project is organized into the following directories and files:
 
 6. **references:** This directory holds reference materials for the project.
    - **Classification_project_structure:**
-      - **Classification_project_structure_OFF.txt:** Offline classification project structure document.
-      - **Classification_project_structure_test.txt:** Test classification project structure document.
+      - **Classification_project_structure.txt:** Classification project structure document.
    - **install_guide.txt:** Guide for installing dependencies and setting up the environment.
 
 7. **reports:** This directory contains various reports and analysis results. It includes subdirectories for different analyses.
