@@ -20,6 +20,7 @@ scikit-plot = "*"
 tqdm = "*"
 streamlit = "*"
 importlib-resources = "*"
+pytest = "*"
 
 [dev-packages]
 

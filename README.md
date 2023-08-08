@@ -91,6 +91,14 @@ The project is organized into the following directories and files:
       - **model_result_analysis.py:** Module for model result analysis functions.
 
 9. **tests:** This directory contains test scripts for the project.
+   Run the tests using the pytest command :
+```bash
+      pytest tests/test_file.py
+```
+   Example of testing data_cleaning.py :
+```bash
+      pytest tests/test_data_cleaning.py
+```
    - **test_data_cleaning.py:** Test script for data cleaning module.
    - **test_EDA.py:** Test script for exploratory data analysis module.
    - **test_Features_impact_analysis.py:** Test script for feature impact analysis module.
@@ -106,7 +114,7 @@ The project is organized into the following directories and files:
    - **Pipfile:** Pipenv file specifying project dependencies.
    - **Pipfile.lock:** Pipenv lock file with exact dependency versions.
    - **pyproject.toml:** (Currently empty) File for project-specific configuration.
-   - **pytest_sample.ini:** (Currently empty) Sample configuration file for pytest.
+   - **pytest_sample.ini:** Sample configuration file for pytest.
    - **README.md:** This README document.
    - **requirements.txt:** File specifying project dependencies.
    - **tox.ini:** (Currently empty) Configuration file for tox testing tool.
