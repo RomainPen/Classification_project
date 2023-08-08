@@ -91,11 +91,11 @@ The project is organized into the following directories and files:
       - **model_result_analysis.py:** Module for model result analysis functions.
 
 9. **tests:** This directory contains test scripts for the project.
-   Run the tests using the pytest command :
+      Run the tests using the pytest command :
 ```bash
       pytest tests/test_file.py
 ```
-   Example of testing data_cleaning.py :
+      Example of testing data_cleaning.py :
 ```bash
       pytest tests/test_data_cleaning.py
 ```
