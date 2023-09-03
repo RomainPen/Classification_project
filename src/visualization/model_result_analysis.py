@@ -26,8 +26,8 @@ class ModelResultAnalysis:
  
         f, ax=plt.subplots(figsize=(6,6))
         sns.heatmap(cm,annot=True,linewidths=0.5,linecolor="red",fmt=".0f",ax=ax)
-        plt.ylabel('Prediction',fontsize=13)
-        plt.xlabel('Actual',fontsize=13)
+        plt.ylabel('Actual',fontsize=13)
+        plt.xlabel('Prediction',fontsize=13)
         plt.title('Confusion Matrix on y_val',fontsize=17)
         plt.savefig(file_location, format='png')
         plt.close()
