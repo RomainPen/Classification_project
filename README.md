@@ -3,6 +3,12 @@
 ## Introduction
 Welcome to the Classification Project! This machine learning project aims to build a classification model for a telecommunication dataset to predict customer churn. The project is structured to facilitate easy development, understanding, and collaboration. This README document provides an overview of the project structure, its components, and instructions to get started.
 
+
+
+Uploading Classif_project_demo_video.mp4…
+
+
+
 ## Project Structure
 The project is organized into the following directories and files:
 
