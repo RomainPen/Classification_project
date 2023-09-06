@@ -11,7 +11,18 @@ class FeaturesEngineering :
     def __init__(self):
         pass
     
-    def features_creation(self, x_df):
+    def features_creation(self, x_df : pd.DataFrame) -> pd.DataFrame:
+        """
+        Create new features in a DataFrame based on specific conditions.
+        This function creates several new features in the input DataFrame based on predefined conditions.
+
+        Args:
+            x_df (pd.DataFrame): The input DataFrame to which new features will be added.
+
+        Returns:
+            pd.DataFrame: A DataFrame with newly created features.
+        """
+        
         # création de 4 variables (comme on cherche les churners dans les 2 mois)
         x_df["FLAG_RECHARGE_M1"] = x_df["RECENCY_OF_LAST_RECHARGE"].apply(lambda x : 1 if 0 <= x <= 31 else 0)
         x_df["FLAG_RECHARGE_M2"] = x_df["RECENCY_OF_LAST_RECHARGE"].apply(lambda x : 1 if 32 <= x <= 62 else 0)
@@ -70,9 +81,22 @@ class FeaturesEngineering :
         return x_df
     
     
-    def filter_selection(self, x_df, y_df, target, train : bool):
-        # Variables catégortielles test du Chi 2:
+    def filter_selection(self, x_df : pd.DataFrame, y_df : pd.Series, target : str, train : bool) -> pd.DataFrame :
+        """
+        Filter and select relevant features based on statistical tests.
+        This function filters and selects relevant features in the input DataFrame based on statistical tests.
         
+        Args:
+            x_df (pd.DataFrame): The input feature DataFrame.
+            y_df (pd.Series): The target variable.
+            target (str): The name of the target variable.
+            train (bool): Indicates whether it's the training phase or not.
+
+        Returns:
+            pd.DataFrame: A DataFrame with selected features.
+        """
+        
+        # Variables catégortielles test du Chi 2:
         if train : 
             df_train = pd.concat([x_df, y_df], axis=1, join="inner")
             info_types = pd.DataFrame(df_train.dtypes)
@@ -103,6 +127,7 @@ class FeaturesEngineering :
         return x_df
     
     
+    
     def encoding_scaling(self, x_df :pd.DataFrame, categorical_var_OHE:list,
                        categorical_var_OrdinalEncoding:dict, categorical_var_TE: list, target, continious_var:list,
                        encoding_type_cont, train : bool) -> pd.DataFrame :
@@ -125,7 +150,7 @@ class FeaturesEngineering :
             train (bool): Ask if you are encoding/scaling a traning set or not (if yes we fit_transform it, else we transform it)
 
         Returns:
-            pd.DataFrame: encoded/scaled dataframe
+            pd.DataFrame : encoded/scaled dataframe
         """
         df_pre_processed = x_df.copy()
         

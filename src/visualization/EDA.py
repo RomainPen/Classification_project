@@ -1,11 +1,19 @@
 import numpy as np
+import pandas as pd
 from skimpy import skim
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pandas.api.types import is_numeric_dtype, is_object_dtype
 
 class EDA:
-    def __init__(self, df, target:str):
+    def __init__(self, df :pd.DataFrame, target:str):
+        """
+        Initialize an Exploratory Data Analysis (EDA) object.
+
+        Args:
+            df (pd.DataFrame): The input DataFrame for EDA.
+            target (str): The name of the target variable.
+        """
         self.df = df
         self.target = target
         # Sélection des colonnes numériques à l'exclusion de la variable cible
@@ -21,7 +29,19 @@ class EDA:
         return None
     
     
-    def distrib_for_cat_by_target(self, var_cat: list, dataframe, target: str, file_saving):
+    def distrib_for_cat_by_target(self, var_cat: list, dataframe :pd.DataFrame, target: str, file_saving):
+        """
+        Create and save distribution plots of categorical variables by target variable.
+
+        Args:
+            var_cat (list): List of categorical variables to analyze.
+            dataframe (pd.DataFrame): The input DataFrame.
+            target (str): The name of the target variable.
+            file_saving: The file path for saving the plots.
+
+        Returns:
+            None
+        """
         temp = dataframe.copy()
         temp['Frequency'] = 0
         counts = temp.groupby([target, var_cat]).count()
@@ -46,7 +66,19 @@ class EDA:
             
     
     
-    def distrib_for_num_by_target(self, var_num: list, dataframe, target: str, file_saving):
+    def distrib_for_num_by_target(self, var_num: list, dataframe :pd.DataFrame, target: str, file_saving):
+        """
+        Create and save distribution plots of numerical variables by target variable.
+
+        Args:
+            var_num (list): List of numerical variables to analyze.
+            dataframe (pd.DataFrame): The input DataFrame.
+            target (str): The name of the target variable.
+            file_saving: The file path for saving the plots.
+
+        Returns:
+            None
+        """
         fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(14, 7))
         sns.histplot(dataframe[dataframe[target] == 0][var_num], ax=ax1)
         sns.histplot(dataframe[dataframe[target] == 1][var_num], ax=ax2)
@@ -62,6 +94,15 @@ class EDA:
     
     
     def correlation_matrix(self, file_saving):
+        """
+        Create and save a correlation matrix heatmap for selected numerical variables and the target variable.
+
+        Args:
+            file_saving: The file path for saving the heatmap.
+
+        Returns:
+            None
+        """
         # Matrice de corrélation
         correlation_matrix = self.df[[elem for elem in self.df.columns if is_numeric_dtype(self.df[elem])]].corr()
 

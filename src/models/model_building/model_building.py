@@ -39,7 +39,23 @@ class ModelBuilding:
 
     
     
-    def train(self, x_train, y_train, hyper_parameters:dict, scoring:str, k_fold:int, n_trials:int):
+    def train(self, x_train : pd.DataFrame, y_train : pd.Series, hyper_parameters:dict, scoring:str, k_fold:int, n_trials:int):
+        """
+        Train a machine learning model with hyperparameter optimization.
+        This method trains a machine learning model (XGBoost) with hyperparameter optimization using Optuna.
+
+        Args:
+            x_train (pd.DataFrame): The feature DataFrame for training.
+            y_train (pd.Series): The target variable Series for training.
+            hyper_parameters (dict): Dictionary containing hyperparameter search spaces.
+            scoring (str): Scoring metric for optimization.
+            k_fold (int): Number of folds for cross-validation.
+            n_trials (int): Number of optimization trials.
+
+        Returns:
+            XGBClassifier: The trained XGBoost model with the best hyperparameters.
+        """
+        
         self.x_train = x_train
         self.y_train = y_train
         self.hyper_parameters = hyper_parameters

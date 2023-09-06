@@ -11,7 +11,22 @@ class ModelEvaluation:
         self.random_state = random_state
         pass
     
-    def ACCURACY_score(self, x_df, y_df, cross_val:bool, k_fold:int):
+    
+    
+    def ACCURACY_score(self, x_df : pd.DataFrame, y_df : pd.Series, cross_val:bool, k_fold:int) -> float:
+        """
+        Calculate the accuracy score for a machine learning model.
+        This method calculates the accuracy score for a machine learning model using cross-validation or on a test set.
+
+        Args:
+            x_df (pd.DataFrame): The feature DataFrame.
+            y_df (pd.Series): The target variable Series.
+            cross_val (bool): Indicates whether to use cross-validation.
+            k_fold (int): Number of folds for cross-validation.
+
+        Returns:
+            float: The accuracy score.
+        """
         if cross_val:
             skf = StratifiedKFold(n_splits=k_fold, shuffle=True, random_state=self.random_state)
             skf.get_n_splits(x_df, y_df)
@@ -22,7 +37,21 @@ class ModelEvaluation:
             return accuracy_score(y_df, pred)
     
     
-    def ROC_AUC_score(self, x_df, y_df, cross_val:bool, k_fold:int):
+    
+    def ROC_AUC_score(self, x_df : pd.DataFrame, y_df : pd.Series, cross_val:bool, k_fold:int) -> float:
+        """
+        Calculate the ROC AUC score for a machine learning model.
+        This method calculates the ROC AUC score for a machine learning model using cross-validation or on a test set.
+
+        Args:
+            x_df (pd.DataFrame): The feature DataFrame.
+            y_df (pd.Series): The target variable Series.
+            cross_val (bool): Indicates whether to use cross-validation.
+            k_fold (int): Number of folds for cross-validation.
+
+        Returns:
+            float: The ROC AUC score.
+        """
         if cross_val :
             skf = StratifiedKFold(n_splits=k_fold, shuffle=True, random_state=self.random_state)
             skf.get_n_splits(x_df, y_df)
@@ -33,7 +62,21 @@ class ModelEvaluation:
             return roc_auc_score(y_df, pred) #if multiclass, then : multi_class='ovr'
     
     
-    def F1_score(self, x_df, y_df, cross_val:bool, k_fold:int):
+    
+    def F1_score(self, x_df : pd.DataFrame, y_df : pd.Series, cross_val:bool, k_fold:int)-> float:
+        """
+        Calculate the F1 score for a machine learning model.
+        This method calculates the F1 score for a machine learning model using cross-validation or on a test set.
+
+        Args:
+            x_df (pd.DataFrame): The feature DataFrame.
+            y_df (pd.Series): The target variable Series.
+            cross_val (bool): Indicates whether to use cross-validation.
+            k_fold (int): Number of folds for cross-validation.
+
+        Returns:
+            float: The F1 score.
+        """
         if cross_val :
             skf = StratifiedKFold(n_splits=k_fold, shuffle=True, random_state=self.random_state)
             skf.get_n_splits(x_df, y_df)

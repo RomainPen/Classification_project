@@ -11,7 +11,18 @@ import numpy as np
 
 
 class ModelResultAnalysis:
-    def __init__(self, model, x_df, y_df):
+    def __init__(self, model, x_df : pd.DataFrame, y_df : pd.Series):
+        """
+        Initialize the ModelResultAnalysis object.
+
+        Args:
+            model: The machine learning model to analyze.
+            x_df (pd.DataFrame): The input features DataFrame.
+            y_df (pd.Series): The target variable Series.
+
+        Returns:
+            None
+        """
         self.model = model
         self.x_df = x_df
         self.y_df = y_df
@@ -21,6 +32,15 @@ class ModelResultAnalysis:
         
     
     def CONFUSION_MATRIX(self, file_location):
+        """
+        Create and save a confusion matrix plot.
+
+        Args:
+            file_location: The file path for saving the confusion matrix plot in PNG format.
+
+        Returns:
+            None
+        """
         # compute the confusion matrix
         cm = confusion_matrix(self.y_df, self.y_pred)
  
@@ -34,14 +54,25 @@ class ModelResultAnalysis:
         
     
     def CLASSIFICATION_REPORT(self):
+        """
+        Generate and return a classification report for the model's predictions.
+
+        Returns:
+            A classification report containing metrics such as precision, recall, and F1-score.
+        """
         return classification_report(self.y_df, self.y_pred)
     
     
     def ROC_AUC_curve(self, file_location):
-        
-        #fpr_train_XGB, tpr_train_XGB, thresholds_train_XGB = roc_curve(self.y_df, self.model.predict_proba(self.x_df)[:,1])
-        #roc_auc_train_XGB = auc(fpr_train_XGB, tpr_train_XGB)
+        """
+        Create and save a Receiver Operating Characteristic (ROC) curve.
 
+        Args:
+            file_location : The file path for saving the ROC curve plot in PNG format.
+
+        Returns:
+            None
+        """
         fpr_val_XGB, tpr_val_XGB, thresholds_val_XGB = roc_curve(self.y_df, self.model.predict_proba(self.x_df)[:,1])
         roc_auc_val_XGB = auc(fpr_val_XGB, tpr_val_XGB)
         
@@ -60,7 +91,13 @@ class ModelResultAnalysis:
         
         
         
-    def BEST_THRESHOLD(self):
+    def BEST_THRESHOLD(self) -> dict:
+        """
+        Find the best threshold for model predictions based on maximizing profit and minimizing profit loss.
+
+        Returns:
+            dict: A dictionary containing information about the best threshold and its impact on profit.
+        """
         nb_client=self.x_df.shape[0]
         #objectif : limiter la perte de bénéfice sur les 12 prochains mois grace au modèle, pour ca on propose une offre de reduc de 3euros sur leur forfait pour 1 an
         #ex : Ici, le modele nous a permis de limiter la perte de benefice (ou profit) de 94953.59 euros sur 1 an (pour environs 9800 clients)
@@ -118,14 +155,34 @@ class ModelResultAnalysis:
         return best_seuil
     
     
-    def LIFT_CURVE(self, file_location):
+    def LIFT_CURVE(self, file_location:str):
+        """
+        Generate and save a lift curve plot.
+
+        Args:
+            file_location (str): The file location to save the plot.
+
+        Returns:
+            None
+        """
         plt.figure(figsize=(7,7))
         skplt.metrics.plot_lift_curve(self.y_df,self.y_pred_proba)
         plt.savefig(file_location, format='png')
         plt.close()
         
     
-    def LEARNING_CURVE(self, cv, scoring, file_location) :
+    def LEARNING_CURVE(self, cv :int, scoring:str, file_location: str) :
+        """
+        Generate and save a learning curve plot.
+
+        Args:
+            cv (int): Number of cross-validation folds.
+            scoring (str): The scoring metric to use for evaluation.
+            file_location (str): The file location to save the plot.
+
+        Returns:
+            None
+        """
         N, train_score, val_score = learning_curve(self.model, self.x_df, self.y_df, train_sizes= np.linspace(0.1,1,10) ,cv=cv, scoring=scoring) #or f1_weighted
         plt.plot(N, val_score.mean(axis=1), label='validation')
         plt.xlabel('train_sizes')

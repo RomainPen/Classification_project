@@ -11,62 +11,112 @@ class Data_Cleaning :
         pass
         
     
-    def basic_treatment(self, df : pd.DataFrame, useless_columns : list) :
-        #drop duplicate :
+    def basic_treatment(self, df : pd.DataFrame, useless_columns : list) -> pd.DataFrame :
+        """_summary_
+
+        Args:
+            df (pd.DataFrame): _description_
+            useless_columns (list): _description_
+
+        Returns:
+            pd.DataFrame: _description_
+        """
+        # Step 1: Remove duplicate rows
         df = df.drop_duplicates(keep="first")
-        #drop useless col:
+        
+        # Step 2: Drop specified useless columns
         df = df.drop(useless_columns, axis=1) #["CONTRACT_KEY"]
-        #Handling data formatting: Data formatting involves making sure that the data is in a consistent format. It can be handled by converting data types, changing date formats, etc.
-        #lowercase caracter :
+        
+        # Handling data formatting: Data formatting involves making sure that the data is in a consistent format. 
+        # It can be handled by converting data types, changing date formats, etc.
+        # Step 3: Convert string values to lowercase
         df = df.applymap(lambda s:s.lower() if type(s) == str else s) 
-        #drop white space :
-        #df = df.applymap(lambda s:s.strip() if type(s) == str else s) 
-        #drop multiple(double, triple) space :
-        #df = df.applymap(lambda s:s.replace("  ", " ") if type(s) == str else s) 
-        #replace " " by "_" :
-        #df = df.applymap(lambda s:s.replace(" ", "_") if type(s) == str else s) 
-        #remove accent :
-        #df = df.applymap(lambda s: unidecode(s) if type(s) == str else s) 
+
+        # Step 4: Remove leading and trailing white spaces
+        # df = df.applymap(lambda s: s.strip() if isinstance(s, str) else s)
+
+        # Step 5: Replace multiple spaces with a single space
+        # df = df.applymap(lambda s: s.replace("  ", " ") if isinstance(s, str) else s)
+
+        # Step 6: Replace spaces with underscores
+        # df = df.applymap(lambda s: s.replace(" ", "_") if isinstance(s, str) else s)
+
+        # Step 7: Remove accents (you need to import the 'unidecode' library)
+        # df = df.applymap(lambda s: unidecode(s) if isinstance(s, str) else s)
         
         return df
     
     
-    def treat_anormal_variables(self, df):
-        #age :
+    def treat_anormal_variables(self, df : pd.DataFrame) -> pd.DataFrame:
+        """
+        Treat abnormal variables in a DataFrame.
+
+        This function performs data treatment on specific columns of a DataFrame to handle abnormal values.
+
+        Args:
+            df (pd.DataFrame): The input DataFrame to be treated.
+
+        Returns:
+            pd.DataFrame: A DataFrame with abnormal values replaced or set to NaN.
+        """
+        # Age Treatment:
+        # Replace ages less than 18 with NaN and ensure all ages are positive
         df["CUSTOMER_AGE"] = df["CUSTOMER_AGE"].apply(lambda x : np.nan if np.abs(x)<18 else np.abs(x))
-        #customer gender :
+        
+        # Customer Gender Treatment:
+        # Extract gender information from a string and handle 'not ent' and 'unknown' values
         df["CUSTOMER_GENDER"] = df["CUSTOMER_GENDER"].apply(lambda x : x.split("'")[1])
         df["CUSTOMER_GENDER"] = df["CUSTOMER_GENDER"].apply(lambda x: np.nan if (x=="not ent" or x=="unknown") else x)
-        #age first contract :
+        
+        # Age at First Contract Treatment:
+        # Calculate age at first contract and handle cases where age is less than 18
         df["age_first_contract"] = df["CUSTOMER_AGE"] - (df["CONTRACT_TENURE_DAYS"]/365)
         df.loc[df['age_first_contract'] < 18, 'CONTRACT_TENURE_DAYS'] = np.nan
         df = df.drop(["age_first_contract"], axis=1)
         
-        # 'NO_OF_RECHARGES_6M' :
+        # 'NO_OF_RECHARGES_6M' Treatment:
+        # Handle cases where 'NO_OF_RECHARGES_6M' minus 'FAILED_RECHARGE_6M' is negative
         df.loc[(df['NO_OF_RECHARGES_6M']-df['FAILED_RECHARGE_6M']) < 0, 'NO_OF_RECHARGES_6M'] = np.nan
-        # proportion de valeurs négatives pour les trois variables concernées
+        
+        # Proportion of values that are negative for specific columns:
         col = ["INC_OUT_PROP_DUR_MIN_M1", "INC_OUT_PROP_DUR_MIN_M2", "INC_OUT_PROP_DUR_MIN_M3"]
         for elem in col :
             df[elem] = np.where(df[elem] < 0, np.abs(df[elem]), df[elem])
         return df
     
     
-    def features_transformation(self, df, external_df) :
-        #phones_data = pd.read_excel("marque_telephone.xlsx")
+    
+    def features_transformation(self, df : pd.DataFrame, external_df:pd.DataFrame) -> pd.DataFrame:
+        """
+        Perform feature transformation in a DataFrame.
+
+        This function transforms features in the input DataFrame by mapping 'CURR_HANDSET_MODE' to 'marque' using
+        an external DataFrame ('external_df') containing phone model information.
+
+        Args:
+            df (pd.DataFrame): The input DataFrame to be transformed.
+            external_df (pd.DataFrame): An external DataFrame containing phone model information.
+
+        Returns:
+            pd.DataFrame: A DataFrame with 'CURR_HANDSET_MODE' transformed to 'marque' and the original column dropped.
+        """
         phones_data = external_df 
+        
+        # Convert strings in 'external_df' to lowercase
         phones_data = phones_data.applymap(lambda x: x.lower() if isinstance(x, str) else x)
 
-        #duplicates = phones_data.duplicated(subset='model', keep=False) (to drop, not sure)
-
-        # Supprimer les doublons de l'index dans phones_data
+        # Remove duplicate rows in 'phones_data' based on the 'model' column
         phones_data = phones_data.drop_duplicates(subset='model')
 
-        # Créer une nouvelle colonne 'Marque' dans df
+        ## Map 'CURR_HANDSET_MODE' to 'marque' using information from 'phones_data'
         df['marque'] = df['CURR_HANDSET_MODE'].map(phones_data.set_index('model')['marque_tel'])
 
-        #drop "CURR_HANDSET_MODE":
+        # Drop the 'CURR_HANDSET_MODE' column
         df = df.drop(["CURR_HANDSET_MODE"], axis=1)
         return df
+        
+        
+        
         
 #***********************************************************************TO REVIEW************************************************************************
     #split data before, and apply the this function : to review
