@@ -12,14 +12,20 @@ class Data_Cleaning :
         
     
     def basic_treatment(self, df : pd.DataFrame, useless_columns : list) -> pd.DataFrame :
-        """_summary_
+        """Perform basic data treatment on a DataFrame.
+
+        This function performs basic data treatment on a given DataFrame:
+        1. Removes duplicate rows.
+        2. Drops specified useless columns.
+        3. Converts string values to lowercase.
 
         Args:
-            df (pd.DataFrame): _description_
-            useless_columns (list): _description_
+            df (pd.DataFrame): The input DataFrame to be treated.
+            useless_columns (list): A list of column names to be removed from the DataFrame.
 
         Returns:
-            pd.DataFrame: _description_
+            pd.DataFrame: A DataFrame with duplicate rows removed, specified columns dropped,
+            and string values converted to lowercase.
         """
         # Step 1: Remove duplicate rows
         df = df.drop_duplicates(keep="first")
