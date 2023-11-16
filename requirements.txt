@@ -1,16 +1,16 @@
 pandas==2.0.3
 path-tree-generator 
 numpy ==1.24
-pyyaml 
-unidecode 
-scikit-learn 
-skimpy 
-category-encoders 
-joblib 
-xgboost 
-shap 
-seaborn 
-optuna 
-scikit-plot 
-tqdm 
-streamlit 
+pyyaml ==6.0.1
+unidecode ==1.3.6
+scikit-learn ==1.3.0
+skimpy ==0.0.9
+category-encoders ==2.6.1
+joblib ==1.3.1
+xgboost ==1.7.6
+shap ==0.42.1
+seaborn ==0.12.1
+optuna ==3.3.0
+scikit-plot ==0.3.7
+tqdm ==4.65.0
+streamlit ==1.25.0
