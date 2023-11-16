@@ -154,7 +154,8 @@ To run this project on your local machine, follow these steps:
 ```
 
 5. Access the Streamlit web app using the provided link: https://nppm6uqcxxf3vmokesgbql.streamlit.app/
-   Access the Streamlit web app using the provided link (from GCP) : https://classif-streamlit-ode6m2smzq-od.a.run.app
+
+6. Access the Streamlit web app using the provided link (from GCP) : https://classif-streamlit-ode6m2smzq-od.a.run.app
 
 ## Usage and Contribution
 Feel free to use and modify this project according to your needs. If you wish to contribute to the project, follow these steps:
