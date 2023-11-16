@@ -3,6 +3,8 @@
 ## Introduction
 Welcome to the Classification Project! This machine learning project aims to build a classification model for a telecommunication dataset to predict customer churn. The project is structured to facilitate easy development, understanding, and collaboration. This README document provides an overview of the project structure, its components, and instructions to get started.
 
+Access the Streamlit web app using the provided link (build from GCP) :
+https://classif-streamlit-ode6m2smzq-od.a.run.app
 
 
 https://github.com/RomainPen/Classification_project/assets/104683031/e0e5b765-fe45-42b7-bbfd-2ddc04bfad61
@@ -152,6 +154,7 @@ To run this project on your local machine, follow these steps:
 ```
 
 5. Access the Streamlit web app using the provided link: https://nppm6uqcxxf3vmokesgbql.streamlit.app/
+   Access the Streamlit web app using the provided link (from GCP) : https://classif-streamlit-ode6m2smzq-od.a.run.app
 
 ## Usage and Contribution
 Feel free to use and modify this project according to your needs. If you wish to contribute to the project, follow these steps:
