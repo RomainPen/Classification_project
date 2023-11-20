@@ -190,7 +190,7 @@ def main(random_state) :
     model_result_analysis.ROC_AUC_curve(file_location=settings["reports"]["Model_result_analysis"]["ROC_AUC_curve"])
     
     # Find best threshold
-    best_threshold = model_result_analysis.BEST_THRESHOLD(prix_1recharge=2, pourcentage_profit=0.6, remise_pour_1churner_predit_1mois=7)
+    best_threshold = model_result_analysis.BEST_THRESHOLD(prix_1recharge=2.5, pourcentage_profit=0.4, remise_pour_1churner_predit_1mois=5)
     print(f"best threshold : {best_threshold}")
     
     # lift curve
