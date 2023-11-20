@@ -88,71 +88,69 @@ class ModelResultAnalysis:
         plt.legend(loc="lower right")
         plt.savefig(file_location, format='png')
         plt.close()
-        
-        
-        
-    def BEST_THRESHOLD(self) -> dict:
+    
+    
+    
+    def BEST_THRESHOLD(self, prix_1recharge : float, pourcentage_profit : float, remise_pour_1churner_predit_1mois : float) -> dict :
         """
         Find the best threshold for model predictions based on maximizing profit and minimizing profit loss.
+        # Objectif : limiter la perte de bénéfice sur les 12 prochains mois grace au modèle. Avoir un Gain_sur_perte_de_profit_grace_model_1mois le plus élevé possible.
+        # Solution : proposer une remise de 5 euros par mois pendant 1an aux potentiel churners.
 
         Returns:
             dict: A dictionary containing information about the best threshold and its impact on profit.
         """
-        nb_client=self.x_df.shape[0]
-        #objectif : limiter la perte de bénéfice sur les 12 prochains mois grace au modèle, pour ca on propose une offre de reduc de 3euros sur leur forfait pour 1 an
-        #ex : Ici, le modele nous a permis de limiter la perte de benefice (ou profit) de 94953.59 euros sur 1 an (pour environs 9800 clients)
-        #cela veut dire que si on garde les churner 1 an de plus et bien : au lieu d'avoir une perte de benefice de 302486.4 (pertes sans modele), on ne perd plus que 207532.8 euros (pertes avec modele)
-
-        #forfait mensuel pour 1 client = 18 euros
-        #profit mensuel par client (%)= 0.4
-        #cout campagne d'offre de reduction pour 1 client pour 1 mois(campagne pub + offre de reduction) = 3 euros
-        #coût de l'offre de reduction sur 1 an = 12*3
+        # Buid table_choix_seuil :
         precision, recall, thresholds = precision_recall_curve(self.y_df, self.y_pred_proba[:, 1])
-        table_choix_seuil_val = pd.DataFrame()
-        table_choix_seuil_val["SEUIL"] = [0] + list(thresholds)
-        table_choix_seuil_val["Precision_val"] = precision
-        table_choix_seuil_val["Recall_val"] = recall
-        table_choix_seuil_val = table_choix_seuil_val.sort_values(by = "SEUIL", axis=0, ascending=False)
-        table_choix_seuil_val = pd.DataFrame(table_choix_seuil_val)
+        table_choix_seuil = pd.DataFrame()
+        table_choix_seuil["SEUIL"] = [0] + list(thresholds)
+        table_choix_seuil["Precision_val"] = precision
+        table_choix_seuil["Recall_val"] = recall
+        table_choix_seuil = table_choix_seuil.sort_values(by = "SEUIL", axis=0, ascending=False)
+        table_choix_seuil = pd.DataFrame(table_choix_seuil)
         
-        best_seuil = {"seuil":0,
+        
+        best_seuil = {"seuil": 0,
                     "recall" : 0,
                     "precision": 0,
-                    "tot_perte_sans_model" : 0,
-                    "tot_perte_avec_model": 0,
-                    "profit_net_sauve_grace_au_model_sur_1an" : 0}
+                    "Profit_total_mois_prochain_sans_model_1mois" : 0,
+                    "Profit_total_mois_prochain_avec_model_1mois": 0,
+                    "Gain_sur_perte_de_profit_grace_model_1mois" : 0}
 
-        prix_forfait_mensuel_par_client = self.x_df["AVERAGE_CHARGE_6M"].mean()/6
-        profit_mensuel_par_forfait_par_client_en_pourcent = 0.4
-        profit_mensuel_par_forfait_par_client = profit_mensuel_par_forfait_par_client_en_pourcent*prix_forfait_mensuel_par_client
-        cout_campagne_offre_par_client_par_mois = self.x_df["AVERAGE_CHARGE_6M"].mean()/6*0.2
 
-        for i in tqdm(table_choix_seuil_val['SEUIL']) :
-            seuil = i
-            y_val_predict_seuil = (self.y_pred_proba[:, 1]>=seuil)*1
+        # Gain sur perte sur 1 mois :
+        nb_recharge_moyenne_1mois_1client = self.x_df["AVERAGE_CHARGE_6M"].mean()/6
+        CA_1client_1mois = nb_recharge_moyenne_1mois_1client*prix_1recharge
+        profit_1client_1mois = pourcentage_profit*CA_1client_1mois
+        Profit_total_du_mois_actuel = len(self.x_df)*profit_1client_1mois #profit au moment où les churners ne sont pas encore parties
+        best_seuil["Profit_total_du_mois_actuel"] = Profit_total_du_mois_actuel
 
-            Confusion_matrix = confusion_matrix(self.y_df, y_val_predict_seuil)
+        for seuil in tqdm(table_choix_seuil['SEUIL']) :
+            y_predict_seuil = (self.y_pred_proba[:, 1]>=seuil)
+            Confusion_matrix = confusion_matrix(self.y_df, y_predict_seuil)
             Confusion_matrix = pd.DataFrame(Confusion_matrix)
 
-            #calcul :
-            #nb d'euros économisés pour 1 mois (faire *12 si on veut pour tous les ans)
-            Tot_OBS_1 = Confusion_matrix[1][1] + Confusion_matrix[0][1] #Tot_OBS_1 = observation total de tous les churner
-            TP = Confusion_matrix[1][1] #TP =true positive
-            Tot_PRED_1 = Confusion_matrix[1][0] + Confusion_matrix[1][1] #Tot_PRED_1 = observation total de tous les churner prédit par le modèle
+            # Calcul Profit_total_mois_prochain_sans_model :
+            nb_client_churner_obs = Confusion_matrix[1][1] + Confusion_matrix[0][1] #Tot_OBS_1 = observation total de tous les churner (True_positive + False_negative)
+            Profit_total_mois_prochain_sans_model = Profit_total_du_mois_actuel - profit_1client_1mois*nb_client_churner_obs
 
-            tot_perte_avec_model = Tot_OBS_1*profit_mensuel_par_forfait_par_client - (TP*profit_mensuel_par_forfait_par_client - (Tot_PRED_1*cout_campagne_offre_par_client_par_mois))
-            tot_perte_sans_model = Tot_OBS_1*profit_mensuel_par_forfait_par_client
-            profit_net_sauve_grace_au_model_sur_1an = (tot_perte_sans_model - tot_perte_avec_model)*12
+            # Calcul Profit_total_mois_prochain_avec_model :
+            TP = Confusion_matrix[1][1] #TP = true positive
+            FN = Confusion_matrix[0][1] #FP = false negative
+            Tot_PRED_1 = Confusion_matrix[1][1] + Confusion_matrix[1][0]  #Tot_PRED_1 = observation total de tous les churner prédit par le modèle (true_pos + false_pos)
+            Profit_total_mois_prochain_avec_model = Profit_total_du_mois_actuel - ((Tot_PRED_1*remise_pour_1churner_predit_1mois) + (FN*profit_1client_1mois) - (TP*profit_1client_1mois))
 
-            if profit_net_sauve_grace_au_model_sur_1an > best_seuil["profit_net_sauve_grace_au_model_sur_1an"] :
+            Gain_sur_perte_de_profit_grace_model_1mois = Profit_total_mois_prochain_avec_model - Profit_total_mois_prochain_sans_model  
+            if Gain_sur_perte_de_profit_grace_model_1mois > best_seuil["Gain_sur_perte_de_profit_grace_model_1mois"] :
                 best_seuil["seuil"] = seuil
-                best_seuil["recall"] = str(recall_score(self.y_df, y_val_predict_seuil))
-                best_seuil["precision"] = str(precision_score(self.y_df, y_val_predict_seuil))
-                best_seuil["tot_perte_sans_model"] = (tot_perte_sans_model*12)*nb_client
-                best_seuil["tot_perte_avec_model"] = (tot_perte_avec_model*12)*nb_client
-                best_seuil["profit_net_sauve_grace_au_model_sur_1an"] = profit_net_sauve_grace_au_model_sur_1an*nb_client
+                best_seuil["recall"] = str(recall_score(self.y_df, y_predict_seuil))
+                best_seuil["precision"] = str(precision_score(self.y_df, y_predict_seuil))
+                best_seuil["Profit_total_mois_prochain_sans_model_1mois"] = Profit_total_mois_prochain_sans_model
+                best_seuil["Profit_total_mois_prochain_avec_model_1mois"] = Profit_total_mois_prochain_avec_model
+                best_seuil["Gain_sur_perte_de_profit_grace_model_1mois"] = Gain_sur_perte_de_profit_grace_model_1mois
 
         return best_seuil
+    
     
     
     def LIFT_CURVE(self, file_location:str):

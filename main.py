@@ -20,10 +20,8 @@ def main(random_state) :
         settings = yaml.safe_load(settings_file)
     
     # Open raw data :
-    df = pd.read_csv(settings["data"]["raw_data_path"], index_col=False, sep=";")
+    df = pd.read_csv(settings["data"]["raw_data_path"], index_col=False, sep=";") 
     df = df.iloc[:, 1:]
-    
-    
     
     
     # 1/ Data cleaning : (class data_cleaning)
@@ -110,8 +108,8 @@ def main(random_state) :
     
     # encoding and scaling (apply on x_train and x_val), (don't take x_train_prepocessed and x_val_proprocessed)
     #numeric and > 2 :
-    list_cont_col = x_train.select_dtypes(include=[np.number]).columns.tolist()
-    list_cont_col = [col for col in list_cont_col if x_train[col].nunique() > 2]
+    list_cont_col = [] #x_train.select_dtypes(include=[np.number]).columns.tolist()
+    list_cont_col = [] #[col for col in list_cont_col if x_train[col].nunique() > 2]
     
     #numeric and <= 2 :
     list_binary_col = x_train.select_dtypes(include=[np.number]).columns.tolist()
@@ -192,7 +190,7 @@ def main(random_state) :
     model_result_analysis.ROC_AUC_curve(file_location=settings["reports"]["Model_result_analysis"]["ROC_AUC_curve"])
     
     # Find best threshold
-    best_threshold = model_result_analysis.BEST_THRESHOLD()
+    best_threshold = model_result_analysis.BEST_THRESHOLD(prix_1recharge=2, pourcentage_profit=0.6, remise_pour_1churner_predit_1mois=7)
     print(f"best threshold : {best_threshold}")
     
     # lift curve
